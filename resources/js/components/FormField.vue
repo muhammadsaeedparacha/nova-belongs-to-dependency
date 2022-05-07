@@ -12,7 +12,7 @@ export default {
         }
     },
 
-    beforeDestroy() {
+    beforeUnmount() {
         if (this.watcherDebounce) {
             clearTimeout(this.watcherDebounce);
         }
