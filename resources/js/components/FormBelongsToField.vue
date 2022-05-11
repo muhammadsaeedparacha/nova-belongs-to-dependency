@@ -109,6 +109,7 @@
 import find from 'lodash/find'
 import isNil from 'lodash/isNil'
 import storage from '@/storage/BelongsToFieldStorage'
+import FormField from './FormField'
 
 
 
@@ -126,6 +127,8 @@ export default {
     PerformsSearches,
     TogglesTrashed,
   ],
+
+  extends: FormField,
 
   props: {
     resourceId: {},
@@ -409,3 +412,5 @@ export default {
   },
 }
 </script>
+
+
