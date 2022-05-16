@@ -20,21 +20,22 @@ export default {
 
     methods: {
         registerDependencyWatchers(root) {
-            root.$children.forEach(component => {
-                if (this.componentIsDependency(component)) {
-                    if (component.selectedResourceId !== undefined) {
-                        // BelongsTo field
-                        component.$watch('selectedResourceId', this.dependencyWatcher, {immediate: true});
-                        this.dependencyWatcher(component.selectedResourceId);
-                    } else if (component.value !== undefined) {
-                        // Text based fields
-                        component.$watch('value', this.dependencyWatcher, {immediate: true});
-                        this.dependencyWatcher(component.value);
-                    }
-                }
+            console.log();
+            // root.$children.forEach(component => {
+            //     if (this.componentIsDependency(component)) {
+            //         if (component.selectedResourceId !== undefined) {
+            //             // BelongsTo field
+            //             component.$watch('selectedResourceId', this.dependencyWatcher, {immediate: true});
+            //             this.dependencyWatcher(component.selectedResourceId);
+            //         } else if (component.value !== undefined) {
+            //             // Text based fields
+            //             component.$watch('value', this.dependencyWatcher, {immediate: true});
+            //             this.dependencyWatcher(component.value);
+            //         }
+            //     }
 
-                this.registerDependencyWatchers(component);
-            })
+            //     this.registerDependencyWatchers(component);
+            // })
         },
         componentIsDependency(component) {
             if (component.field === undefined) {

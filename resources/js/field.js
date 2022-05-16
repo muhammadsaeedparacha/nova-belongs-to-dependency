@@ -4,5 +4,8 @@ Nova.booting((Vue) => {
 Vue.component("DetailBelongsToDependency", require("./components/DetailBelongsToField").default);
 Vue.component("FormBelongsToDependency", 
         require("./components/FormBelongsToField.vue").default);
+
+       
 })
 
+console.log(Nova);

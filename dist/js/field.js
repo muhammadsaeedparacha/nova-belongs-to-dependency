@@ -334,29 +334,20 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     registerDependencyWatchers: function registerDependencyWatchers(root) {
-      var _this = this;
-
-      root.$children.forEach(function (component) {
-        if (_this.componentIsDependency(component)) {
-          if (component.selectedResourceId !== undefined) {
-            // BelongsTo field
-            component.$watch('selectedResourceId', _this.dependencyWatcher, {
-              immediate: true
-            });
-
-            _this.dependencyWatcher(component.selectedResourceId);
-          } else if (component.value !== undefined) {
-            // Text based fields
-            component.$watch('value', _this.dependencyWatcher, {
-              immediate: true
-            });
-
-            _this.dependencyWatcher(component.value);
-          }
-        }
-
-        _this.registerDependencyWatchers(component);
-      });
+      console.log(); // root.$children.forEach(component => {
+      //     if (this.componentIsDependency(component)) {
+      //         if (component.selectedResourceId !== undefined) {
+      //             // BelongsTo field
+      //             component.$watch('selectedResourceId', this.dependencyWatcher, {immediate: true});
+      //             this.dependencyWatcher(component.selectedResourceId);
+      //         } else if (component.value !== undefined) {
+      //             // Text based fields
+      //             component.$watch('value', this.dependencyWatcher, {immediate: true});
+      //             this.dependencyWatcher(component.value);
+      //         }
+      //     }
+      //     this.registerDependencyWatchers(component);
+      // })
     },
     componentIsDependency: function componentIsDependency(component) {
       if (component.field === undefined) {
@@ -366,23 +357,23 @@ __webpack_require__.r(__webpack_exports__);
       return component.field.attribute === this.field.dependsOn;
     },
     dependencyWatcher: function dependencyWatcher(value) {
-      var _this2 = this;
+      var _this = this;
 
       clearTimeout(this.watcherDebounce);
       this.watcherDebounce = setTimeout(function () {
-        if (value === _this2.dependsOnValue) {
+        if (value === _this.dependsOnValue) {
           return;
         }
 
-        _this2.dependsOnValue = value;
+        _this.dependsOnValue = value;
 
-        _this2.clearSelection();
+        _this.clearSelection();
 
-        _this2.$nextTick(function () {
-          _this2.initializeComponent();
+        _this.$nextTick(function () {
+          _this.initializeComponent();
         });
 
-        _this2.watcherDebounce = null;
+        _this.watcherDebounce = null;
       }, this.watcherDebounceTimeout);
     }
   },
@@ -22953,6 +22944,7 @@ Nova.booting(function (Vue) {
   Vue.component("DetailBelongsToDependency", (__webpack_require__(/*! ./components/DetailBelongsToField */ "./resources/js/components/DetailBelongsToField.vue")["default"]));
   Vue.component("FormBelongsToDependency", (__webpack_require__(/*! ./components/FormBelongsToField.vue */ "./resources/js/components/FormBelongsToField.vue")["default"]));
 });
+console.log(Nova);
 })();
 
 /******/ })()
