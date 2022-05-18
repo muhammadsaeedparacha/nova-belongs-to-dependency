@@ -19496,21 +19496,6 @@ var __webpack_exports__ = {};
 /*!*******************************!*\
   !*** ./resources/js/field.js ***!
   \*******************************/
-// Nova.booting((Vue) => {
-//     // Re-use old components but we extend the form field
-//     Vue.component(
-//         "IndexBelongsToDependency",
-//         require("./components/IndexBelongsToField").default
-//     );
-//     Vue.component(
-//         "DetailBelongsToDependency",
-//         require("./components/DetailBelongsToField").default
-//     );
-//     Vue.component(
-//         "FormBelongsToDependency",
-//         require("./components/FormField.vue").default
-//     );
-// });
 Nova.booting(function (Vue) {
   // Re-use old components but we extend the form field
   Vue.component('IndexBelongsToDependency', Vue.component('IndexBelongsToField'));
