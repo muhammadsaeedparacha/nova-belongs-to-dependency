@@ -40,56 +40,22 @@ __webpack_require__.r(__webpack_exports__);
       this.walk(root.$.vnode, function (component) {
         if (_this.componentIsDependency(component)) {
           if (component.selectedResourceId !== undefined) {
-            console.log('1'); // BelongsTo field
-
+            // BelongsTo field
             component.$watch('selectedResourceId', _this.dependencyWatcher, {
               immediate: true
             });
-            console.log(component);
 
             _this.dependencyWatcher(component.selectedResourceId);
           } else if (component.value !== undefined) {
-            console.log('2'); // Text based fields
-
+            // Text based fields
             component.$watch('value', _this.dependencyWatcher, {
               immediate: true
             });
 
             _this.dependencyWatcher(component.value);
           }
-        } // this.registerDependencyWatchers(component);
-
-      }); //let children = root.$.appContext.components;
-      // for (const component in children) {
-      //     if (true) {
-      //         console.log(children[component]);
-      //     }
-      // if (this.componentIsDependency(children[component])) {
-      //     if (component.selectedResourceId !== undefined) {
-      //         // BelongsTo field
-      //         children[component].$watch('selectedResourceId', this.dependencyWatcher, {immediate: true});
-      //         this.dependencyWatcher(children[component].selectedResourceId);
-      //     } else if (children[component].value !== undefined) {
-      //         // Text based fields
-      //         children[component].$watch('value', this.dependencyWatcher, {immediate: true});
-      //         this.dependencyWatcher(children[component].value);
-      //     }
-      //     this.registerDependencyWatchers(children[component]);
-      // }
-      // children.forEach(component => {
-      //     if (this.componentIsDependency(component)) {
-      //         if (component.selectedResourceId !== undefined) {
-      //             // BelongsTo field
-      //             component.$watch('selectedResourceId', this.dependencyWatcher, {immediate: true});
-      //             this.dependencyWatcher(component.selectedResourceId);
-      //         } else if (component.value !== undefined) {
-      //             // Text based fields
-      //             component.$watch('value', this.dependencyWatcher, {immediate: true});
-      //             this.dependencyWatcher(component.value);
-      //         }
-      //     }
-      //     this.registerDependencyWatchers(component);
-      // })
+        }
+      });
     },
     componentIsDependency: function componentIsDependency(component) {
       if (component.field === undefined) {
@@ -101,18 +67,12 @@ __webpack_require__.r(__webpack_exports__);
     dependencyWatcher: function dependencyWatcher(value) {
       var _this2 = this;
 
-      console.log('dependency watcher value');
-      console.log(value);
-      console.log(this.dependsOnValue);
       clearTimeout(this.watcherDebounce);
       this.watcherDebounce = setTimeout(function () {
-        console.log('reached timeout');
-
         if (value === _this2.dependsOnValue) {
           return;
         }
 
-        console.log('has depends on value');
         _this2.dependsOnValue = value;
 
         _this2.clearSelection();
@@ -359,7 +319,9 @@ __webpack_require__.r(__webpack_exports__);
       this.selectedResourceId = id;
       this.initializingWithExistingResource = true;
       this.getAvailableResources().then(function () {
-        return _this5.selectInitialResource();
+        _this5.selectInitialResource();
+
+        _this5.emitFieldValueChange(_this5.field.attribute, _this5.selectedResourceId);
       });
     }
   },
@@ -2538,6 +2500,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         if (index > -1) this.selectedResources.splice(index, 1);
       }
 
+      this.selectAllMatchingResources = false;
       this.getActions();
     },
 
