@@ -1,30 +1,34 @@
 <script>
+import FormBelongsToField from '@/fields/Form/BelongsToField';
 export default {
     data: () => ({
         dependsOnValue: null,
         watcherDebounce: null,
         watcherDebounceTimeout: 200,
     }),
-
+    extends: FormBelongsToField,
     created() {
         if (this.field.dependsOn !== undefined) {
             this.registerDependencyWatchers(this.$root);
         }
     },
 
-    beforeDestroy() {
+    beforeUnmount() {
         if (this.watcherDebounce) {
             clearTimeout(this.watcherDebounce);
         }
     },
 
+    
+
     methods: {
         registerDependencyWatchers(root) {
-            root.$children.forEach(component => {
+            this.walk(root.$.vnode, component => {
                 if (this.componentIsDependency(component)) {
                     if (component.selectedResourceId !== undefined) {
                         // BelongsTo field
                         component.$watch('selectedResourceId', this.dependencyWatcher, {immediate: true});
+                     
                         this.dependencyWatcher(component.selectedResourceId);
                     } else if (component.value !== undefined) {
                         // Text based fields
@@ -33,8 +37,8 @@ export default {
                     }
                 }
 
-                this.registerDependencyWatchers(component);
             })
+            
         },
         componentIsDependency(component) {
             if (component.field === undefined) {
@@ -49,7 +53,6 @@ export default {
                 if (value === this.dependsOnValue) {
                     return;
                 }
-
                 this.dependsOnValue = value;
 
                 this.clearSelection();
@@ -59,6 +62,21 @@ export default {
 
                 this.watcherDebounce = null;
             }, this.watcherDebounceTimeout);
+        },
+
+        walk(vnode, cb) {
+            if (!vnode) return;
+
+            if (vnode.component) {
+                const proxy = vnode.component.proxy;
+                if (proxy) cb(vnode.component.proxy);
+                this.walk(vnode.component.subTree, cb);
+            } else if (vnode.shapeFlag & 16) {
+                const vnodes = vnode.children;
+                for (let i = 0; i < vnodes.length; i++) {
+                    this.walk(vnodes[i], cb);
+                }
+            }
         },
     },
 
