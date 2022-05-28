@@ -4,6 +4,13 @@ This package is an extension of Laravel Nova's existing BelongsTo field and Vue 
 
 Originally created by manmohanjit, the original package was abandoned.
 
+## Requirements
+
+- PHP 7.3+
+- Nova 4
+
+Use the 1.x versions if you need support for Nova 3
+
 ## Installation
 
 You can install this package on a Laravel app that uses [Nova](https://nova.laravel.com) via composer:
