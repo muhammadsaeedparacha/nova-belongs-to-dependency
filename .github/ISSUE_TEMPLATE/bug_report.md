@@ -23,6 +23,11 @@ A clear and concise description of what you expected to happen.
 **Screenshots**
 If applicable, add screenshots to help explain your problem.
 
+**Related versions**
+- Laravel version: [e.g. 9.1.9]
+- Nova version: [e.g. 4.7.0]
+- Package version: [e.g. 2.0.0]
+
 **Desktop (please complete the following information):**
  - OS: [e.g. iOS]
  - Browser [e.g. chrome, safari]
